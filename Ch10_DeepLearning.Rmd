@@ -1,6 +1,6 @@
 ---
 title: "Deep Learning"
-author: "Your Name"
+author: "Chenghao Xia"
 date: "2022-12-21"
 output: github_document
 ---
@@ -158,8 +158,25 @@ Consider the simple function $R(\beta) = sin(\beta) + \beta/10$.
 (a) Draw a graph of this function over the range $\beta \in [−6, 6]$.
 Your code:
 ```{r,echo=TRUE}
-#
-#
+# Define the function
+R <- function(beta) {
+  sin(beta) + beta / 10
+}
+
+# Generate values for beta
+beta_values <- seq(-6, 6, length.out = 100)
+
+# Calculate corresponding values of R(beta)
+R_values <- R(beta_values)
+
+# Plot the graph
+plot(beta_values, R_values, type = "l", col = "blue", lwd = 2,
+     xlab = expression(beta), ylab = expression(R(beta)),
+     main = "Graph of R(beta)")
+
+# Add a grid
+grid()
+
 ```
 
 
@@ -167,8 +184,25 @@ Your code:
 
 Your code:
 ```{r,echo=TRUE}
-#
-#
+# Define the derivative function
+dR_dbeta <- function(beta) {
+  cos(beta) + 1/10
+}
+
+# Generate values for beta
+beta_values <- seq(-6, 6, length.out = 100)
+
+# Calculate corresponding values of dR/d(beta)
+dR_values <- dR_dbeta(beta_values)
+
+# Plot the graph of the derivative
+plot(beta_values, dR_values, type = "l", col = "red", lwd = 2,
+     xlab = expression(beta), ylab = expression(dfrac(dR(beta), d(beta))),
+     main = "Graph of the derivative of R(beta)")
+
+# Add a grid
+grid()
+
 ```
 
 Your answer:
@@ -183,8 +217,66 @@ Please write your answer in full sentences.
 
 Your code:
 ```{r,echo=TRUE}
-#
-#
+# Define the function R(beta)
+R <- function(beta) {
+  sin(beta) + beta / 10
+}
+
+# Define the derivative of R(beta)
+dR_dbeta <- function(beta) {
+  cos(beta) + 1/10
+}
+
+# Gradient descent function
+gradient_descent <- function(beta0, learning_rate, iterations) {
+  beta <- beta0
+  beta_history <- numeric(iterations)
+  
+  for (i in 1:iterations) {
+    # Update beta using gradient descent
+    beta <- beta - learning_rate * dR_dbeta(beta)
+    
+    # Record the updated beta value
+    beta_history[i] <- beta
+  }
+  
+  return(beta_history)
+}
+
+# Set initial values
+beta0 <- 2.3
+learning_rate <- 0.1
+iterations <- 50
+
+# Run gradient descent
+beta_history <- gradient_descent(beta0, learning_rate, iterations)
+
+# Plot the function R(beta) and the gradient descent steps
+beta_values <- seq(-6, 6, length.out = 100)
+R_values <- R(beta_values)
+
+plot(beta_values, R_values, type = "l", col = "blue", lwd = 2,
+     xlab = expression(beta), ylab = expression(R(beta)),
+     main = "Gradient Descent to Find Local Minimum")
+
+# Add gradient descent steps to the plot
+points(beta_history, R(beta_history), col = "red", pch = 19)
+
+# Add initial and final points
+points(beta0, R(beta0), col = "green", pch = 19)
+points(beta_history[length(beta_history)], R(beta_history[length(beta_history)]), col = "red", pch = 19)
+
+# Add arrows to indicate direction of gradient descent
+arrows(beta_history[-length(beta_history)], R(beta_history[-length(beta_history)]),
+       beta_history[-1], R(beta_history[-1]), length = 0.1, col = "red")
+
+# Add legend
+legend("topright", legend = c("R(beta)", "Gradient Descent Steps", "Initial Point", "Final Point"),
+       col = c("blue", "red", "green", "red"), lty = c(1, NA, NA, NA), pch = c(NA, 19, 19, 19))
+       
+# Add a grid
+grid()
+
 ```
 
 Your answer:
@@ -199,8 +291,35 @@ Please write your answer in full sentences.
 
 Your code:
 ```{r,echo=TRUE}
-#
-#
+# Set initial values
+beta0 <- 1.4
+
+# Run gradient descent
+beta_history <- gradient_descent(beta0, learning_rate, iterations)
+
+# Plot the function R(beta) and the gradient descent steps
+plot(beta_values, R_values, type = "l", col = "blue", lwd = 2,
+     xlab = expression(beta), ylab = expression(R(beta)),
+     main = "Gradient Descent to Find Local Minimum")
+
+# Add gradient descent steps to the plot
+points(beta_history, R(beta_history), col = "red", pch = 19)
+
+# Add initial and final points
+points(beta0, R(beta0), col = "green", pch = 19)
+points(beta_history[length(beta_history)], R(beta_history[length(beta_history)]), col = "red", pch = 19)
+
+# Add arrows to indicate direction of gradient descent
+arrows(beta_history[-length(beta_history)], R(beta_history[-length(beta_history)]),
+       beta_history[-1], R(beta_history[-1]), length = 0.1, col = "red")
+
+# Add legend
+legend("topright", legend = c("R(beta)", "Gradient Descent Steps", "Initial Point", "Final Point"),
+       col = c("blue", "red", "green", "red"), lty = c(1, NA, NA, NA), pch = c(NA, 19, 19, 19))
+       
+# Add a grid
+grid()
+
 ```
 
 Your answer:
@@ -217,8 +336,7 @@ Fit a neural network to the Default data. Use a single hidden layer with 10 unit
 
 Your code:
 ```{r,echo=TRUE}
-#
-#
+
 ```
 
 Your answer:
